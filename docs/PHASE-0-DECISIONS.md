@@ -19,7 +19,7 @@ Lab lives at `/lab`. Use the bar toggles while you scroll. Defaults below are th
 Phase 2 `HeroStack` should read the same three paths. Do not invent a fourth. fwf
 
 ## Other lab results to carry forward
-
+   
 | Experiment | Carry into Phase 1–2 |
 |---|---|
 | Card Embla + swatches | Keep. Color sets `--sku` and jumps to that color’s first slide. |
