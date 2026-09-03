@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, Navigate, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { api } from "../api/client";
 import { useAuthStore } from "../store/authStore";
@@ -12,6 +13,7 @@ export function StudioLayout() {
   const setSession = useAuthStore((state) => state.setSession);
   const logout = useAuthStore((state) => state.logout);
   const [ready, setReady] = useState(location.pathname.endsWith("/login"));
+  const [menuOpen, setMenuOpen] = useState(false);
   usePageTitle("Studio");
 
   const isLogin = location.pathname === "/studio/login";
@@ -44,6 +46,17 @@ export function StudioLayout() {
     };
   }, [isLogin, token, setSession, logout]);
 
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
   if (!ready) {
     return <div className="studio-boot">Loading studio…</div>;
   }
@@ -56,13 +69,27 @@ export function StudioLayout() {
     return <Outlet />;
   }
 
+  const signOut = () => {
+    logout();
+    navigate("/studio/login");
+  };
+
   return (
-    <div className="studio">
+    <div className={menuOpen ? "studio is-menu" : "studio"}>
       <header className="studio-bar">
+        <button
+          className="studio-bar__menu"
+          type="button"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          {menuOpen ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} strokeWidth={1.5} />}
+        </button>
         <Link to="/studio" className="site-logo">
           Pulsif Studio
         </Link>
-        <nav>
+        <nav className={menuOpen ? "is-open" : undefined}>
           <NavLink to="/studio" end>
             Dashboard
           </NavLink>
@@ -71,21 +98,18 @@ export function StudioLayout() {
           <NavLink to="/studio/carousels">Carousels</NavLink>
           <NavLink to="/studio/settings">Settings</NavLink>
           <Link to="/">View store</Link>
+          <span className="studio-bar__who">{user?.username || "staff"}</span>
         </nav>
         <div className="studio-bar__user">
           <span>{user?.username || "staff"}</span>
-          <button
-            type="button"
-            className="text-link"
-            onClick={() => {
-              logout();
-              navigate("/studio/login");
-            }}
-          >
+          <button type="button" className="text-link" onClick={signOut}>
             Log out
           </button>
         </div>
       </header>
+      {menuOpen ? (
+        <button className="studio-bar__shade" type="button" aria-label="Close menu" onClick={() => setMenuOpen(false)} />
+      ) : null}
       <Outlet />
     </div>
   );

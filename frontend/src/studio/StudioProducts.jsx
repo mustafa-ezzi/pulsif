@@ -49,6 +49,7 @@ export function StudioProducts() {
       </div>
       {isLoading ? <p>Loading products…</p> : null}
       {error ? <p className="studio-error">{error.message}</p> : null}
+      <div className="studio-scroll">
       <table className="studio-table">
         <thead>
           <tr>
@@ -84,6 +85,7 @@ export function StudioProducts() {
           ))}
         </tbody>
       </table>
+      </div>
       {!isLoading && !products.length ? <p className="studio-muted">No products match that filter.</p> : null}
     </div>
   );

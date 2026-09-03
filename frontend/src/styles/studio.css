@@ -1,22 +1,38 @@
 .studio {
+  position: relative;
   min-height: 100vh;
   background: var(--ink);
 }
 
 .studio-bar {
-  display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  justify-content: space-between;
-  gap: 24px;
+  gap: 20px;
   height: var(--header-h);
   padding: 0 var(--page-pad);
   border-bottom: 1px solid var(--line);
   background: var(--ink-2);
 }
 
+.studio-bar .site-logo {
+  font-size: 24px;
+}
+
+.studio-bar__menu,
+.studio-bar__shade,
+.studio-bar__who {
+  display: none;
+}
+
 .studio-bar nav {
   display: flex;
-  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 18px;
   color: var(--mist);
 }
 
@@ -28,6 +44,7 @@
   display: flex;
   gap: 16px;
   align-items: center;
+  justify-self: end;
   color: var(--mist);
   font-size: 13px;
 }
@@ -267,6 +284,12 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
+}
+
+.studio-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .studio-table {
@@ -546,44 +569,174 @@
   padding: 10px 8px;
 }
 
-@media (max-width: 900px) {
+.studio-delete {
+  color: var(--ember);
+}
+
+@media (max-width: 1100px) {
+  .studio-bar {
+    grid-template-columns: 44px 1fr auto;
+    height: 56px;
+    padding: 0 12px;
+    gap: 8px;
+  }
+
+  .studio-bar__menu {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    color: var(--text);
+  }
+
+  .studio-bar .site-logo {
+    justify-self: center;
+    font-size: 20px;
+  }
+
+  .studio-bar__user span {
+    display: none;
+  }
+
+  .studio-bar nav {
+    display: none;
+    position: absolute;
+    top: 56px;
+    left: 0;
+    right: 0;
+    z-index: 82;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0;
+    padding: 8px 20px 20px;
+    background: var(--ink-2);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .studio-bar nav.is-open {
+    display: flex;
+  }
+
+  .studio-bar nav a,
+  .studio-bar__who {
+    display: block;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 16px;
+  }
+
+  .studio-bar__who {
+    color: var(--mist);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: 0;
+    padding-top: 16px;
+  }
+
+  .studio-bar__shade {
+    display: block;
+    position: fixed;
+    inset: 56px 0 0;
+    z-index: 81;
+    background: rgba(8, 9, 11, 0.55);
+    border: 0;
+  }
+}
+
+@media (max-width: 960px) {
+  .studio-grid--heroes,
+  .studio-card--hero,
   .studio-order__grid {
     grid-template-columns: 1fr;
+  }
+
+  .studio-card--hero .studio-frame {
+    max-width: 160px;
   }
 
   .studio-order__total {
     text-align: left;
   }
+
+  .studio-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
-.studio-delete {
-  color: var(--ember);
+@media (max-width: 800px) {
+  .studio-page,
+  .studio-login,
+  .studio-boot {
+    padding: 24px 16px 64px;
+  }
+
+  .studio .display {
+    font-size: clamp(32px, 9vw, 48px);
+  }
+
+  .studio-h2 {
+    font-size: 26px;
+    margin: 32px 0 14px;
+  }
+
+  .studio-head {
+    align-items: stretch;
+  }
+
+  .studio-head .cta-volt,
+  .studio-form .cta-volt,
+  .studio-form--inline .cta-volt,
+  .studio-order__pipeline .cta-volt,
+  .studio-order__actions .studio-ghost,
+  .studio-order__pipeline .studio-ghost {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .studio-filters,
+  .studio-form__row,
+  .studio-form--inline {
+    grid-template-columns: 1fr;
+  }
+
+  .studio-form {
+    max-width: none;
+    margin: 16px 0 28px;
+  }
+
+  .studio-table {
+    min-width: 620px;
+  }
+
+  .studio-table--tight {
+    min-width: 480px;
+  }
+
+  .studio-panel {
+    padding: 16px;
+  }
+
+  .studio-stat h2 {
+    font-size: 28px;
+  }
+
+  .studio-slot-list {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .studio-login {
+    padding-top: 10vh;
+  }
 }
 
-@media (max-width: 960px) {
-  .studio-grid--heroes,
-  .studio-card--hero {
+@media (max-width: 520px) {
+  .studio-stats,
+  .studio-slot-list {
     grid-template-columns: 1fr;
   }
 
   .studio-card--hero .studio-frame {
-    max-width: 180px;
-  }
-}
-
-@media (max-width: 700px) {
-  .studio-bar {
-    flex-wrap: wrap;
-    height: auto;
-    padding: 12px var(--page-pad);
-  }
-
-  .studio-bar nav {
-    flex-wrap: wrap;
-    width: 100%;
-  }
-
-  .studio-filters {
-    grid-template-columns: 1fr;
+    max-width: none;
   }
 }

@@ -268,6 +268,7 @@ export function StudioProductEdit() {
           {missingImages.length ? (
             <p className="studio-error">Colors without images will not show as storefront swatches.</p>
           ) : null}
+          <div className="studio-scroll">
           <table className="studio-table">
             <thead>
               <tr>
@@ -290,6 +291,7 @@ export function StudioProductEdit() {
               ))}
             </tbody>
           </table>
+          </div>
 
           <h2 className="studio-h2">Images by color</h2>
           <p className="page__lede">Crop hint 4:5. Assign a color so the PDP gallery and card swatches stay in sync.</p>

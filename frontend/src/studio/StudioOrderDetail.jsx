@@ -74,6 +74,7 @@ export function StudioOrderDetail() {
       <div className="studio-order__grid">
         <section className="studio-panel">
           <h2>Lines</h2>
+          <div className="studio-scroll">
           <table className="studio-table studio-table--tight">
             <thead>
               <tr>
@@ -99,6 +100,7 @@ export function StudioOrderDetail() {
               ))}
             </tbody>
           </table>
+          </div>
           <dl className="studio-totals">
             <div>
               <dt>Subtotal</dt>

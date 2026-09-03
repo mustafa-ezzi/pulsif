@@ -56,6 +56,7 @@ export function StudioDashboard() {
 
       <h2 className="studio-h2">Low stock</h2>
       {data.low_stock.length ? (
+        <div className="studio-scroll">
         <table className="studio-table">
           <thead>
             <tr>
@@ -80,6 +81,7 @@ export function StudioDashboard() {
             ))}
           </tbody>
         </table>
+        </div>
       ) : (
         <p className="studio-muted">All live variants are at 5 or more.</p>
       )}

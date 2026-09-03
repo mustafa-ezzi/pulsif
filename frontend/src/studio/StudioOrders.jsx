@@ -42,6 +42,7 @@ export function StudioOrders() {
       </div>
       {isLoading ? <p>Loading orders…</p> : null}
       {error ? <p className="studio-error">{error.message}</p> : null}
+      <div className="studio-scroll">
       <table className="studio-table">
         <thead>
           <tr>
@@ -71,6 +72,7 @@ export function StudioOrders() {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }
