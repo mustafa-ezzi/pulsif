@@ -95,6 +95,26 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 SERVE_MEDIA = env.bool("SERVE_MEDIA", default=True)
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# ── Cloudflare R2 / S3-compatible object storage ─────────────────────────────
+# Set CF_R2_BUCKET_NAME in Railway env to enable; falls back to local disk.
+_r2_bucket = env("CF_R2_BUCKET_NAME", default="")
+if _r2_bucket:
+    INSTALLED_APPS += ["storages"]
+    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    AWS_STORAGE_BUCKET_NAME = _r2_bucket
+    AWS_S3_REGION_NAME = "auto"
+    AWS_S3_ENDPOINT_URL = env("CF_R2_ENDPOINT_URL", default="")   # https://<account-id>.r2.cloudflarestorage.com
+    AWS_ACCESS_KEY_ID = env("CF_R2_ACCESS_KEY_ID", default="")
+    AWS_SECRET_ACCESS_KEY = env("CF_R2_SECRET_ACCESS_KEY", default="")
+    AWS_S3_FILE_OVERWRITE = False
+    AWS_QUERYSTRING_AUTH = False                                    # public bucket → no signed URLs
+    AWS_S3_CUSTOM_DOMAIN = env("CF_R2_CUSTOM_DOMAIN", default="")  # optional: e.g. media.pulsif.store
+    if AWS_S3_CUSTOM_DOMAIN:
+        MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/"
+    else:
+        MEDIA_URL = f"{AWS_S3_ENDPOINT_URL}/{_r2_bucket}/"
+# ─────────────────────────────────────────────────────────────────────────────
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 from corsheaders.defaults import default_headers

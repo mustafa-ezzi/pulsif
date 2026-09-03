@@ -8,3 +8,5 @@ stripe>=11.0
 gunicorn>=23.0
 whitenoise>=6.8
 psycopg[binary]>=3.2
+django-storages[s3]>=1.14
+boto3>=1.35
