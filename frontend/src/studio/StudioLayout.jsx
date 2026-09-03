@@ -99,6 +99,13 @@ export function StudioLayout() {
           <NavLink to="/studio/settings">Settings</NavLink>
           <Link to="/">View store</Link>
           <span className="studio-bar__who">{user?.username || "staff"}</span>
+          <button
+            type="button"
+            className="studio-bar__signout"
+            onClick={signOut}
+          >
+            Log out
+          </button>
         </nav>
         <div className="studio-bar__user">
           <span>{user?.username || "staff"}</span>

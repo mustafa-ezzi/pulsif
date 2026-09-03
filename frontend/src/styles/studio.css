@@ -1,5 +1,4 @@
 .studio {
-  position: relative;
   min-height: 100vh;
   background: var(--ink);
 }
@@ -16,6 +15,8 @@
   padding: 0 var(--page-pad);
   border-bottom: 1px solid var(--line);
   background: var(--ink-2);
+  /* Needed so the dropdown can break out with fixed positioning */
+  isolation: auto;
 }
 
 .studio-bar .site-logo {
@@ -24,7 +25,8 @@
 
 .studio-bar__menu,
 .studio-bar__shade,
-.studio-bar__who {
+.studio-bar__who,
+.studio-bar__signout {
   display: none;
 }
 
@@ -600,17 +602,19 @@
 
   .studio-bar nav {
     display: none;
-    position: absolute;
+    position: fixed;
     top: 56px;
     left: 0;
     right: 0;
+    bottom: 0;
     z-index: 82;
     flex-direction: column;
     flex-wrap: nowrap;
     gap: 0;
-    padding: 8px 20px 20px;
+    padding: 0 0 40px;
     background: var(--ink-2);
-    border-bottom: 1px solid var(--line);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .studio-bar nav.is-open {
@@ -620,27 +624,38 @@
   .studio-bar nav a,
   .studio-bar__who {
     display: block;
-    padding: 14px 0;
+    padding: 16px var(--page-pad);
     border-bottom: 1px solid var(--line);
-    font-size: 16px;
+    font-size: 15px;
+    color: var(--mist);
+  }
+
+  .studio-bar nav a:hover,
+  .studio-bar nav a.active {
+    color: var(--text);
+    background: rgba(246, 243, 236, 0.04);
   }
 
   .studio-bar__who {
     color: var(--mist);
-    font-size: 13px;
-    letter-spacing: 0.08em;
+    font-size: 11px;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     border-bottom: 0;
-    padding-top: 16px;
+    padding-top: 24px;
+  }
+
+  .studio-bar__signout {
+    display: block;
+    width: 100%;
+    padding: 14px var(--page-pad);
+    text-align: left;
+    color: var(--ember);
+    font-size: 15px;
   }
 
   .studio-bar__shade {
-    display: block;
-    position: fixed;
-    inset: 56px 0 0;
-    z-index: 81;
-    background: rgba(8, 9, 11, 0.55);
-    border: 0;
+    display: none;
   }
 }
 

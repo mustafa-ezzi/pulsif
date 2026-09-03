@@ -63,26 +63,30 @@ export function ProductCard({ product }) {
       <Link to={href} className="card-title">
         {product.title}
       </Link>
-      <p className="card-price">
-        {product.compare_at ? <s>${Number(product.compare_at).toFixed(2)}</s> : null}
-        ${Number(product.price).toFixed(2)}
-      </p>
-      <div className="swatches" role="listbox" aria-label={`${product.title} colors`}>
-        {colors.map((entry, index) => (
-          <button
-            key={entry.slug}
-            type="button"
-            role="option"
-            aria-selected={index === colorIndex}
-            aria-label={entry.name}
-            title={entry.name}
-            className={index === colorIndex ? "swatch is-on" : "swatch"}
-            style={{ "--swatch": entry.hex }}
-            onClick={() => selectColor(index)}
-          />
-        ))}
+      <div className="card-foot">
+        <p className="card-price">
+          {product.compare_at ? <s>${Number(product.compare_at).toFixed(2)}</s> : null}
+          ${Number(product.price).toFixed(2)}
+        </p>
+        <div className="card-foot__swatches">
+          <div className="swatches" role="listbox" aria-label={`${product.title} colors`}>
+            {colors.map((entry, index) => (
+              <button
+                key={entry.slug}
+                type="button"
+                role="option"
+                aria-selected={index === colorIndex}
+                aria-label={entry.name}
+                title={entry.name}
+                className={index === colorIndex ? "swatch is-on" : "swatch"}
+                style={{ "--swatch": entry.hex }}
+                onClick={() => selectColor(index)}
+              />
+            ))}
+          </div>
+          {color?.name ? <span className="card-color-name">{color.name}</span> : null}
+        </div>
       </div>
-      {color?.name ? <p className="card-color-name">{color.name}</p> : null}
     </article>
   );
 }
