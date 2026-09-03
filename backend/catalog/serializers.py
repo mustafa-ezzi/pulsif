@@ -9,6 +9,8 @@ def absolute_url(request, file_field):
     if not file_field:
         return ""
     url = file_field.url
+    if url.startswith("http://") or url.startswith("https://"):
+        return url
     if request:
         return request.build_absolute_uri(url)
     return url

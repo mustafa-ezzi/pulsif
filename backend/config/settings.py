@@ -96,25 +96,46 @@ MEDIA_ROOT = BASE_DIR / "media"
 SERVE_MEDIA = env.bool("SERVE_MEDIA", default=True)
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# ── Cloudflare R2 / S3-compatible object storage ─────────────────────────────
-# Set CF_R2_BUCKET_NAME in Railway env to enable; falls back to local disk.
-_r2_bucket = env("CF_R2_BUCKET_NAME", default="")
-if _r2_bucket:
+def _clean_env(name, default=""):
+    return env(name, default=default).strip().strip('"').strip("'")
+
+
+# Django 5 uses STORAGES, not DEFAULT_FILE_STORAGE. Without this, uploads stay
+# on the Railway disk and disappear on every deploy.
+_r2_bucket = _clean_env("CF_R2_BUCKET_NAME")
+_r2_endpoint = _clean_env("CF_R2_ENDPOINT_URL").rstrip("/")
+_r2_access_key = _clean_env("CF_R2_ACCESS_KEY_ID")
+_r2_secret_key = _clean_env("CF_R2_SECRET_ACCESS_KEY")
+_r2_domain = (
+    _clean_env("CF_R2_CUSTOM_DOMAIN")
+    .removeprefix("https://")
+    .removeprefix("http://")
+    .rstrip("/")
+)
+if _r2_bucket and _r2_endpoint and _r2_access_key and _r2_secret_key:
     INSTALLED_APPS += ["storages"]
-    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-    AWS_STORAGE_BUCKET_NAME = _r2_bucket
-    AWS_S3_REGION_NAME = "auto"
-    AWS_S3_ENDPOINT_URL = env("CF_R2_ENDPOINT_URL", default="")   # https://<account-id>.r2.cloudflarestorage.com
-    AWS_ACCESS_KEY_ID = env("CF_R2_ACCESS_KEY_ID", default="")
-    AWS_SECRET_ACCESS_KEY = env("CF_R2_SECRET_ACCESS_KEY", default="")
-    AWS_S3_FILE_OVERWRITE = False
-    AWS_QUERYSTRING_AUTH = False                                    # public bucket → no signed URLs
-    AWS_S3_CUSTOM_DOMAIN = env("CF_R2_CUSTOM_DOMAIN", default="")  # optional: e.g. media.pulsif.store
-    if AWS_S3_CUSTOM_DOMAIN:
-        MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/"
-    else:
-        MEDIA_URL = f"{AWS_S3_ENDPOINT_URL}/{_r2_bucket}/"
-# ─────────────────────────────────────────────────────────────────────────────
+    STORAGES = {
+        "default": {
+            "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+            "OPTIONS": {
+                "access_key": _r2_access_key,
+                "secret_key": _r2_secret_key,
+                "bucket_name": _r2_bucket,
+                "endpoint_url": _r2_endpoint,
+                "region_name": "auto",
+                "default_acl": None,
+                "querystring_auth": False,
+                "file_overwrite": False,
+                "addressing_style": "path",
+                "signature_version": "s3v4",
+                **({"custom_domain": _r2_domain} if _r2_domain else {}),
+            },
+        },
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+        },
+    }
+    MEDIA_URL = f"https://{_r2_domain}/" if _r2_domain else f"{_r2_endpoint}/{_r2_bucket}/"
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 from corsheaders.defaults import default_headers
