@@ -82,6 +82,7 @@ export function ProductCard({ product }) {
           />
         ))}
       </div>
+      {color?.name ? <p className="card-color-name">{color.name}</p> : null}
     </article>
   );
 }

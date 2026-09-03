@@ -128,7 +128,7 @@ export function HeroStack({ chapters }) {
 
   return (
     <div ref={rootRef} className="hero-stack">
-      {chapters.map((chapter) => {
+      {chapters.map((chapter, index) => {
         const lines = chapter.lines?.length ? chapter.lines : [chapter.headline];
         return (
           <section key={chapter.id || chapter.headline} className="hero-chapter" aria-label={chapter.eyebrow}>
@@ -138,7 +138,13 @@ export function HeroStack({ chapters }) {
                 data-tone={chapter.tone}
               >
                 {chapter.image ? (
-                  <img className="hero-media__photo" src={chapter.image} alt="" />
+                  <img
+                    className="hero-media__photo"
+                    src={chapter.image}
+                    alt=""
+                    fetchPriority={index === 0 ? "high" : "low"}
+                    decoding="async"
+                  />
                 ) : (
                   <div className="hero-board" aria-hidden="true" />
                 )}

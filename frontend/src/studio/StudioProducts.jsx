@@ -1,11 +1,12 @@
-import { Link } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { getStudioProducts } from "../api/client";
-import { usePageTitle } from "../hooks/usePageTitle";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { deleteStudioProduct, getStudioProducts } from "../api/client";
+import { usePageTitle } from "../hooks/usePageTitle";
 
 export function StudioProducts() {
   usePageTitle("Products");
+  const queryClient = useQueryClient();
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState("");
   const { data, error, isLoading } = useQuery({
@@ -13,6 +14,16 @@ export function StudioProducts() {
     queryFn: () => getStudioProducts({ q: query, status }),
   });
   const products = Array.isArray(data) ? data : data?.results || [];
+
+  const remove = async (product) => {
+    if (!window.confirm(`Delete “${product.title}”? This cannot be undone.`)) return;
+    try {
+      await deleteStudioProduct(product.id);
+      queryClient.invalidateQueries({ queryKey: ["studio-products"] });
+    } catch (err) {
+      window.alert(err.message || "Could not delete this product.");
+    }
+  };
 
   return (
     <div className="studio-page">
@@ -47,6 +58,7 @@ export function StudioProducts() {
             <th>Variants</th>
             <th>Images</th>
             <th>Min stock</th>
+            <th />
           </tr>
         </thead>
         <tbody>
@@ -63,10 +75,16 @@ export function StudioProducts() {
               <td>{product.variant_count}</td>
               <td>{product.image_count}</td>
               <td>{product.min_stock ?? "—"}</td>
+              <td>
+                <button type="button" className="text-link studio-delete" onClick={() => remove(product)}>
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
+      {!isLoading && !products.length ? <p className="studio-muted">No products match that filter.</p> : null}
     </div>
   );
 }

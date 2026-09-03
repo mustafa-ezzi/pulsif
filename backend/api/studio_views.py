@@ -151,6 +151,12 @@ class StudioProductViewSet(viewsets.ModelViewSet):
             slug = f"{slug}-{timezone.now().strftime('%H%M%S')}"
         serializer.save(slug=slug)
 
+    def perform_destroy(self, instance):
+        for image in list(instance.images.all()):
+            if image.image:
+                image.image.delete(save=False)
+        instance.delete()
+
     @action(detail=True, methods=["post"])
     def matrix(self, request, pk=None):
         product = self.get_object()

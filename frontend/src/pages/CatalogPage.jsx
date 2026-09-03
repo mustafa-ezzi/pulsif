@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef, useState, useEffect } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getProducts } from "../api/client";
 import { Flip, gsap } from "../motion/register";
@@ -128,7 +128,12 @@ export function CatalogPage() {
         ))}
       </div>
       {!products.length && !isFetching ? (
-        <p className="page__lede">Nothing on this filter. Try another color or type.</p>
+        <div className="empty-state">
+          <p className="page__lede">Nothing on this filter. Try another color or type, or clear back to the full floor.</p>
+          <Link className="text-link" to="/catalog">
+            View all products →
+          </Link>
+        </div>
       ) : null}
       {products.length < count ? (
         <button

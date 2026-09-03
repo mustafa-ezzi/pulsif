@@ -86,7 +86,7 @@ export function VideoHero() {
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="auto"
       />
       <div className="video-hero__scrim" />
       <div className="video-hero__copy">

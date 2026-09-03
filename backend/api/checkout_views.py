@@ -2,9 +2,11 @@ from decimal import Decimal
 
 from django.conf import settings
 from django.shortcuts import get_object_or_404
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, throttle_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+
+from api.throttles import CheckoutThrottle
 
 from api.cart_views import _get_cart, serialize_cart
 from commerce.models import Order
@@ -35,6 +37,7 @@ def _can_view(request, order):
 
 @api_view(["POST"])
 @permission_classes([AllowAny])
+@throttle_classes([CheckoutThrottle])
 def checkout_create(request):
     cart = _get_cart(request, create=False)
     if not cart or not cart.lines.exists():

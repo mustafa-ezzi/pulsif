@@ -117,6 +117,7 @@ CSRF_TRUSTED_ORIGINS = csrf_origins
 
 EMAIL_BACKEND = env("EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend")
 DEFAULT_FROM_EMAIL = "Pulsif <hello@pulsif.store>"
+PUBLIC_SITE_URL = env("PUBLIC_SITE_URL", default="http://127.0.0.1:5173")
 
 STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY", default="")
 STRIPE_PUBLISHABLE_KEY = env("STRIPE_PUBLISHABLE_KEY", default="")
@@ -129,6 +130,11 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.AllowAny",
     ],
+    "DEFAULT_THROTTLE_RATES": {
+        "contact": "8/hour",
+        "newsletter": "12/hour",
+        "checkout": "20/hour",
+    },
 }
 
 SIMPLE_JWT = {

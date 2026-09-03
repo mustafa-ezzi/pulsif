@@ -7,6 +7,7 @@ import { PromoBanner } from "../components/landing/PromoBanner";
 import { Lookbook } from "../components/landing/Lookbook";
 import { GenderTiles } from "../components/landing/GenderTiles";
 import { usePageTitle } from "../hooks/usePageTitle";
+import { JsonLd } from "../components/seo/JsonLd";
 import { HERO_CHAPTERS, LAB_PRODUCTS } from "../data/labProducts";
 
 function mapLabProduct(product) {
@@ -72,7 +73,7 @@ const FALLBACK = {
 };
 
 export function HomePage() {
-  usePageTitle("");
+  usePageTitle("", "Pulsif — pilates boards, bands, and lifting grips. Shop the floor.");
   const { data } = useQuery({
     queryKey: ["home"],
     queryFn: getHome,
@@ -83,6 +84,14 @@ export function HomePage() {
 
   return (
     <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "Pulsif",
+          url: "https://pulsif.store",
+        }}
+      />
       <VideoHero />
       {data?.heroes?.length ? (
         <HeroStack chapters={data.heroes} />

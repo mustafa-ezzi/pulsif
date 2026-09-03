@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "../api/client";
 import { usePageTitle } from "../hooks/usePageTitle";
@@ -20,7 +20,12 @@ export function SearchPage() {
       <p className="eyebrow">Search</p>
       <h1 className="display page__title">{q || "All products"}</h1>
       {!results.length && !isFetching ? (
-        <p className="page__lede">No matches. Try board, band, or grips.</p>
+        <div className="empty-state">
+          <p className="page__lede">No matches. Try board, band, or grips.</p>
+          <Link className="text-link" to="/catalog">
+            Browse the catalog →
+          </Link>
+        </div>
       ) : (
         <div className="card-grid catalog-grid">
           {results.map((product) => (

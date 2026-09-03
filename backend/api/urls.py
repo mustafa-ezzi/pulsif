@@ -1,7 +1,7 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from api import auth_views, cart_views, catalog_views, checkout_views, cms_views, page_views, studio_views, views, webhooks
+from api import auth_views, cart_views, catalog_views, checkout_views, cms_views, page_views, seo_views, studio_views, views, webhooks
 
 router = DefaultRouter()
 router.register("studio/heroes", cms_views.HeroChapterViewSet, basename="studio-heroes")
@@ -16,6 +16,9 @@ router.register("studio/faqs", studio_views.StudioFaqItemViewSet, basename="stud
 
 urlpatterns = [
     path("health/", views.health, name="health"),
+    path("sitemap.xml", seo_views.sitemap, name="sitemap"),
+    path("robots.txt", seo_views.robots, name="robots"),
+    path("seo/", seo_views.seo_config, name="seo-config"),
     path("cms/home/", cms_views.home, name="cms-home"),
     path("cms/pages/faqs/", page_views.faqs, name="cms-faqs"),
     path("cms/pages/contact/", page_views.contact_page, name="cms-contact"),

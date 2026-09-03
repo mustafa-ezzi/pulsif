@@ -11,6 +11,7 @@ import { SizeGuide } from "../components/product/SizeGuide";
 import { Accordion } from "../components/ui/Accordion";
 import { ProductCard } from "../components/product/ProductCard";
 import { QtyStepper } from "../components/ui/QtyStepper";
+import { JsonLd } from "../components/seo/JsonLd";
 
 export function ProductPage() {
   const { slug } = useParams();
@@ -28,7 +29,7 @@ export function ProductPage() {
   const [sticky, setSticky] = useState(false);
   const [pending, setPending] = useState(false);
   const galleryRef = useRef(null);
-  usePageTitle(product?.title || "Product");
+  usePageTitle(product?.title || "Product", product?.subtitle || product?.description);
 
   const colors = product?.colors || [];
   const colorParam = params.get("color");
@@ -99,8 +100,24 @@ export function ProductPage() {
   const compare = variant?.compare_at || product.compare_at;
   const hasGuide = Boolean(product.size_guide && (product.size_guide.rows || []).length);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.title,
+    description: product.subtitle || product.description || "",
+    image: galleryImages.map((image) => image.url).filter(Boolean),
+    sku: variant?.sku,
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "USD",
+      price: price.toFixed(2),
+      availability: variant?.stock === 0 ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
+    },
+  };
+
   return (
     <section className="page page--pdp">
+      <JsonLd data={jsonLd} />
       <div className="pdp-layout">
         <div className="pdp-media" ref={galleryRef}>
           <Gallery images={galleryImages} alt={product.title} sku={color?.hex || color?.token} />

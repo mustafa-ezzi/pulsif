@@ -19,7 +19,7 @@ def health(_request):
         {
             "ok": db_ok,
             "service": "pulsif-api",
-            "phase": 5,
+            "phase": 6,
             "database": "postgres" if "postgresql" in engine else "sqlite",
             "time": timezone.now().isoformat(),
         }

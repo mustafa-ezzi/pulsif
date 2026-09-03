@@ -33,6 +33,26 @@
   margin: 0 0 28px;
 }
 
+.legal-block {
+  margin: 0 0 28px;
+}
+
+.legal-block h2 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  margin: 0 0 8px;
+}
+
+.legal-block p {
+  color: #5c564c;
+  max-width: 56ch;
+  line-height: 1.6;
+}
+
+.empty-state {
+  margin: 12px 0 32px;
+}
+
 .page--split {
   display: grid;
   grid-template-columns: 1fr 1fr;

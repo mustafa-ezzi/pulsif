@@ -1,7 +1,9 @@
 from django.core.mail import send_mail
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, throttle_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+
+from api.throttles import ContactThrottle, NewsletterThrottle
 
 from cms.models import ContactBlock, FaqCategory, SiteSettings
 
@@ -50,6 +52,7 @@ def contact_page(_request):
 
 @api_view(["POST"])
 @permission_classes([AllowAny])
+@throttle_classes([ContactThrottle])
 def contact_submit(request):
     name = (request.data.get("name") or "").strip()
     email = (request.data.get("email") or "").strip()
@@ -68,6 +71,7 @@ def contact_submit(request):
 
 @api_view(["POST"])
 @permission_classes([AllowAny])
+@throttle_classes([NewsletterThrottle])
 def newsletter(request):
     email = (request.data.get("email") or "").strip()
     if "@" not in email:

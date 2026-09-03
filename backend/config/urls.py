@@ -3,8 +3,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
+from api import seo_views
+
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("sitemap.xml", seo_views.sitemap),
+    path("robots.txt", seo_views.robots),
     path("api/v1/", include("api.urls")),
 ]
 

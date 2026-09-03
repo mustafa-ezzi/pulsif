@@ -11,6 +11,7 @@ export function DrawerFrame({
   children,
 }) {
   const closeRef = useRef(null);
+  const panelRef = useRef(null);
 
   useLockBody(open);
 
@@ -23,6 +24,29 @@ export function DrawerFrame({
     closeRef.current?.focus();
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose]);
+
+  useEffect(() => {
+    const panel = panelRef.current;
+    if (!open || !panel) return undefined;
+    const onTab = (event) => {
+      if (event.key !== "Tab") return;
+      const nodes = [...panel.querySelectorAll("a, button, input, textarea, select, [tabindex]:not([tabindex='-1'])")].filter(
+        (node) => !node.disabled && node.tabIndex !== -1 && node.offsetParent !== null
+      );
+      if (!nodes.length) return;
+      const first = nodes[0];
+      const last = nodes[nodes.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    panel.addEventListener("keydown", onTab);
+    return () => panel.removeEventListener("keydown", onTab);
+  }, [open]);
 
   if (typeof document === "undefined") return null;
 
@@ -40,6 +64,7 @@ export function DrawerFrame({
         role="dialog"
         aria-modal={open}
         aria-labelledby={labelledBy || titleId}
+        ref={panelRef}
       >
         <button
           className="site-icon-btn site-drawer__close"

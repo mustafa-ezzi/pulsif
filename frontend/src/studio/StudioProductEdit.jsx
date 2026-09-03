@@ -347,12 +347,18 @@ export function StudioProductEdit() {
 
           <button
             type="button"
-            className="studio-danger"
+            className="studio-danger-btn"
             onClick={async () => {
-              if (!window.confirm("Delete this product?")) return;
-              await deleteStudioProduct(id);
-              queryClient.invalidateQueries({ queryKey: ["studio-products"] });
-              navigate("/studio/products");
+              if (!window.confirm(`Delete “${form.title || "this product"}”? This cannot be undone.`)) return;
+              setBusy(true);
+              try {
+                await deleteStudioProduct(id);
+                queryClient.invalidateQueries({ queryKey: ["studio-products"] });
+                navigate("/studio/products");
+              } catch (err) {
+                setMessage(err.message || "Could not delete this product.");
+                setBusy(false);
+              }
             }}
           >
             Delete product
