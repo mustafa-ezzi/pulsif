@@ -1,0 +1,31 @@
+{
+  "name": "pulsif-storefront",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fontsource/cormorant-garamond": "^5.2.5",
+    "@fontsource/sora": "^5.2.5",
+    "@gsap/react": "^2.1.2",
+    "@stripe/react-stripe-js": "^6.8.2",
+    "@stripe/stripe-js": "^9.15.0",
+    "@tanstack/react-query": "^5.90.2",
+    "embla-carousel-react": "^8.6.0",
+    "gsap": "^3.13.0",
+    "lenis": "^1.3.11",
+    "lucide-react": "^0.544.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.30.1",
+    "zustand": "^5.0.8"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.7.0",
+    "vite": "^5.4.19"
+  }
+}

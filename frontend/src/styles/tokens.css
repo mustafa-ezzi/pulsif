@@ -1,0 +1,55 @@
+:root {
+  --ink: #0e1013;
+  --ink-2: #171a1f;
+  --paper: #f3efe7;
+  --paper-2: #e7e1d6;
+  --mist: #9a9388;
+  --line: rgba(243, 239, 231, 0.12);
+  --line-dark: rgba(14, 16, 19, 0.1);
+  --text: #f6f3ec;
+  --text-ink: #14161a;
+  --volt: #c8f542;
+  --volt-ink: #12150a;
+  --ember: #ff4d6a;
+  --ice: #7cfff0;
+  --sku-black: #1a1a1a;
+  --sku-pink: #ff7ab6;
+  --sku-purple: #7b5cff;
+  --sku-lilac: #c4b5fd;
+  --sku-graphite: #3a3f46;
+  --sku-sand: #d4c4a8;
+  --sku-white: #f7f4ee;
+  --ok: #3ddc97;
+  --warn: #f5c14a;
+  --err: #ff4d6a;
+  --sku: var(--sku-black);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 180ms;
+  --dur-med: 400ms;
+  --dur-slow: 800ms;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-ui: "Sora", system-ui, sans-serif;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 80px;
+  --page-pad: clamp(16px, 4vw, 48px);
+  --max: 1440px;
+  --header-h: 72px;
+  --radius-s: 8px;
+  --radius-m: 16px;
+  --radius-l: 28px;
+  --neu-out: 6px 6px 14px rgba(0, 0, 0, 0.45), -4px -4px 10px rgba(255, 255, 255, 0.04);
+  --neu-in: inset 4px 4px 10px rgba(0, 0, 0, 0.45), inset -3px -3px 8px rgba(255, 255, 255, 0.04);
+  --lab-bar-h: 56px;
+}
+
+@media (max-width: 860px) {
+  :root {
+    --header-h: 56px;
+  }
+}

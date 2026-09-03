@@ -1,0 +1,244 @@
+.video-hero {
+  position: relative;
+  height: 100vh;
+  min-height: 560px;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--text);
+}
+
+.video-hero__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(14, 16, 19, 0.42) 0%,
+    rgba(14, 16, 19, 0.08) 36%,
+    rgba(14, 16, 19, 0.62) 100%
+  );
+}
+
+.video-hero__copy {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  max-width: 720px;
+  padding: 0 var(--page-pad) 10vh;
+}
+
+.video-hero__title {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: clamp(28px, 4.4vw, 56px);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.08;
+  margin: 0 0 14px;
+}
+
+.video-hero__lede {
+  max-width: 46ch;
+  margin: 0 0 28px;
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.video-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.video-hero__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 22px;
+  background: var(--text);
+  color: var(--text-ink);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.video-hero__btn--ghost {
+  background: transparent;
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px var(--text);
+}
+
+.video-hero__controls {
+  position: absolute;
+  right: var(--page-pad);
+  bottom: 10vh;
+  z-index: 2;
+  display: flex;
+  gap: 8px;
+}
+
+.video-hero__ctrl {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: var(--text);
+  background: rgba(14, 16, 19, 0.35);
+  box-shadow: inset 0 0 0 1px rgba(246, 243, 236, 0.35);
+}
+
+.hero-media.has-image {
+  background: var(--ink);
+}
+
+.hero-media__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.slide-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.archive {
+  padding: 80px var(--page-pad) 64px;
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.archive__title {
+  font-size: clamp(48px, 7vw, 84px);
+  margin: 8px 0 28px;
+}
+
+.archive__tabs {
+  display: flex;
+  gap: 28px;
+  margin-bottom: 32px;
+}
+
+.archive__tabs button {
+  font-size: 15px;
+  color: var(--mist);
+  padding-bottom: 8px;
+  border-bottom: 1px solid transparent;
+}
+
+.archive__tabs button.is-on {
+  color: var(--text);
+  border-bottom-color: var(--text);
+}
+
+.archive__all {
+  display: inline-flex;
+  margin-top: 32px;
+}
+
+.promo-banner {
+  position: relative;
+  min-height: 48vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  background: var(--ink-2);
+  background-image: var(--hero-img);
+  background-size: cover;
+  background-position: center;
+}
+
+.promo-banner--tall {
+  min-height: 70vh;
+}
+
+.promo-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(14, 16, 19, 0.2), rgba(14, 16, 19, 0.62));
+}
+
+.promo-banner[data-tone="volt"] {
+  background-color: #1c2410;
+}
+
+.promo-banner[data-tone="graphite"] {
+  background-color: #1a1d22;
+}
+
+.promo-banner[data-tone="pink"] {
+  background-color: #2a121c;
+}
+
+.promo-banner__copy {
+  position: relative;
+  z-index: 1;
+  padding: 48px var(--page-pad);
+}
+
+.promo-banner__copy h2 {
+  font-size: clamp(48px, 8vw, 96px);
+  margin: 12px 0 24px;
+}
+
+.lookbook {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  min-height: 80vh;
+}
+
+.lookbook__hero {
+  position: relative;
+  min-height: 70vh;
+  background: var(--ink-2) var(--hero-img) center / cover no-repeat;
+  display: flex;
+  align-items: flex-end;
+}
+
+.lookbook__hero-copy {
+  padding: 48px;
+}
+
+.lookbook__cards {
+  padding: 48px var(--page-pad);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  background: var(--ink);
+}
+
+.lookbook__cards .product-card {
+  max-width: 420px;
+}
+
+.choose-bar {
+  text-align: center;
+}
+
+@media (max-width: 860px) {
+  .lookbook {
+    grid-template-columns: 1fr;
+  }
+
+  .archive .card-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
