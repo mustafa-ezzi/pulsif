@@ -53,17 +53,92 @@
 
 .studio-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
+}
+
+.studio-grid--heroes {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .studio-card {
   display: grid;
   gap: 10px;
+  min-width: 0;
   padding: 16px;
   border-radius: var(--radius-m);
   background: var(--ink-2);
   box-shadow: var(--neu-out);
+}
+
+.studio-card--hero {
+  grid-template-columns: 132px minmax(0, 1fr);
+  gap: 16px 20px;
+  align-items: start;
+}
+
+.studio-card__fields {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+
+.studio-card__kicker {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mist);
+}
+
+.studio-card--hero .cta-volt {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.studio-file__row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 8px 10px;
+  border-radius: var(--radius-s);
+  background: var(--ink);
+  box-shadow: var(--neu-in);
+}
+
+.studio-file__row input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  box-shadow: none;
+  padding: 0;
+  background: transparent;
+}
+
+.studio-file__btn {
+  flex: none;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--ink-2);
+  color: var(--text);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.studio-file__row em {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-style: normal;
+  color: var(--mist);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 12px;
 }
 
 .studio-card label {
@@ -83,6 +158,19 @@
   background: var(--ink);
   color: var(--text);
   box-shadow: var(--neu-in);
+}
+
+.studio-card .studio-file__row input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  box-shadow: none;
+  background: transparent;
 }
 
 .studio-frame {
@@ -299,6 +387,17 @@
 .studio-danger {
   margin-top: 48px;
   color: var(--ember);
+}
+
+@media (max-width: 960px) {
+  .studio-grid--heroes,
+  .studio-card--hero {
+    grid-template-columns: 1fr;
+  }
+
+  .studio-card--hero .studio-frame {
+    max-width: 180px;
+  }
 }
 
 @media (max-width: 700px) {

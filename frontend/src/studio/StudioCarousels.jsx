@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   createCarouselItem,
@@ -18,7 +19,36 @@ function Frame({ ratio, src, hint }) {
   );
 }
 
-function HeroEditor({ chapter, onSaved }) {
+function FileField({ name, hint = "PNG or JPG", onPicked }) {
+  const [label, setLabel] = useState(hint);
+  return (
+    <label className="studio-file">
+      Replace image
+      <span className="studio-file__row">
+        <input
+          name={name}
+          type="file"
+          accept="image/*"
+          onChange={(event) => {
+            const file = event.target.files?.[0];
+            setLabel(file?.name || hint);
+            onPicked?.(file || null);
+          }}
+        />
+        <span className="studio-file__btn">Choose file</span>
+        <em>{label}</em>
+      </span>
+    </label>
+  );
+}
+
+function HeroEditor({ chapter, index, onSaved }) {
+  const [preview, setPreview] = useState(chapter.image || "");
+
+  useEffect(() => {
+    setPreview(chapter.image || "");
+  }, [chapter.image]);
+
   const save = async (event) => {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
@@ -29,31 +59,35 @@ function HeroEditor({ chapter, onSaved }) {
   };
 
   return (
-    <form className="studio-card" onSubmit={save}>
-      <Frame ratio="9 / 16" src={chapter.image} hint="9:16 hero" />
-      <label>
-        Eyebrow
-        <input name="eyebrow" defaultValue={chapter.eyebrow} />
-      </label>
-      <label>
-        Headline (line break = new line)
-        <textarea name="headline" rows={3} defaultValue={chapter.headline} />
-      </label>
-      <label>
-        CTA
-        <input name="cta_label" defaultValue={chapter.cta_label} />
-      </label>
-      <label>
-        Link
-        <input name="cta_href" defaultValue={chapter.cta_href} />
-      </label>
-      <label>
-        Replace image
-        <input name="image" type="file" accept="image/*" />
-      </label>
-      <button className="cta-volt neu-btn" type="submit">
-        Save chapter
-      </button>
+    <form className="studio-card studio-card--hero" onSubmit={save}>
+      <Frame ratio="9 / 16" src={preview} hint="9:16 hero" />
+      <div className="studio-card__fields">
+        <p className="studio-card__kicker">Chapter {index + 1}</p>
+        <label>
+          Eyebrow
+          <input name="eyebrow" defaultValue={chapter.eyebrow} />
+        </label>
+        <label>
+          Headline (line break = new line)
+          <textarea name="headline" rows={3} defaultValue={chapter.headline} />
+        </label>
+        <label>
+          CTA
+          <input name="cta_label" defaultValue={chapter.cta_label} />
+        </label>
+        <label>
+          Link
+          <input name="cta_href" defaultValue={chapter.cta_href} />
+        </label>
+        <FileField
+          name="image"
+          hint="9:16 · PNG or JPG"
+          onPicked={(file) => setPreview(file ? URL.createObjectURL(file) : chapter.image)}
+        />
+        <button className="cta-volt neu-btn" type="submit">
+          Save chapter
+        </button>
+      </div>
     </form>
   );
 }
@@ -88,10 +122,7 @@ function BannerEditor({ banner, onSaved }) {
         Link
         <input name="cta_href" defaultValue={banner.cta_href} />
       </label>
-      <label>
-        Replace image
-        <input name="image" type="file" accept="image/*" />
-      </label>
+      <FileField name="image" hint="16:9 · PNG or JPG" />
       <button className="cta-volt neu-btn" type="submit">
         Save banner
       </button>
@@ -235,9 +266,9 @@ export function StudioCarousels() {
       </p>
 
       <h2 className="studio-h2">Hero stack</h2>
-      <div className="studio-grid">
-        {data.heroes.map((chapter) => (
-          <HeroEditor key={chapter.id} chapter={chapter} onSaved={refresh} />
+      <div className="studio-grid studio-grid--heroes">
+        {data.heroes.map((chapter, index) => (
+          <HeroEditor key={chapter.id} chapter={chapter} index={index} onSaved={refresh} />
         ))}
       </div>
 
