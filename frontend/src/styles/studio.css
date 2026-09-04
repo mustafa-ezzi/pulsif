@@ -23,6 +23,17 @@
   font-size: 24px;
 }
 
+.studio-bar__brand {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+.studio-bar .back-btn {
+  flex: none;
+}
+
 .studio-bar__menu,
 .studio-bar__shade,
 .studio-bar__who,
@@ -577,7 +588,7 @@
 
 @media (max-width: 1100px) {
   .studio-bar {
-    grid-template-columns: 44px 1fr auto;
+    grid-template-columns: auto 1fr auto;
     height: 56px;
     padding: 0 12px;
     gap: 8px;
@@ -592,6 +603,9 @@
   }
 
   .studio-bar .site-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     justify-self: center;
     font-size: 20px;
   }

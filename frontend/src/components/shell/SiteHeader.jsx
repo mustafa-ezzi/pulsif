@@ -6,6 +6,7 @@ import { gsap } from "../../motion/register";
 import { useCartStore } from "../../store/cartStore";
 import { useUiStore } from "../../store/uiStore";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
+import { BackButton } from "../ui/BackButton";
 
 const NAV = [
   { to: "/", label: "Home", end: true },
@@ -80,17 +81,20 @@ export function SiteHeader() {
       ref={headerRef}
       className={solid ? "site-header is-solid" : "site-header"}
     >
-      <button
-        className="site-icon-btn site-header__menu"
-        type="button"
-        aria-label="Open menu"
-        onClick={openNav}
-      >
-        <Menu size={22} strokeWidth={1.5} />
-      </button>
-      <Link to="/" className="site-logo">
-        Pulsif
-      </Link>
+      <div className="site-header__brand">
+        <button
+          className="site-icon-btn site-header__menu"
+          type="button"
+          aria-label="Open menu"
+          onClick={openNav}
+        >
+          <Menu size={22} strokeWidth={1.5} />
+        </button>
+        <BackButton />
+        <Link to="/" className="site-logo">
+          Pulsif
+        </Link>
+      </div>
 
       <nav className="site-nav" aria-label="Primary">
         {NAV.map((item) => (

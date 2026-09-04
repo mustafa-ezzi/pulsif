@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { api } from "../api/client";
 import { useAuthStore } from "../store/authStore";
+import { BackButton } from "../components/ui/BackButton";
 
 export function StudioLayout() {
   const location = useLocation();
@@ -77,18 +78,21 @@ export function StudioLayout() {
   return (
     <div className={menuOpen ? "studio is-menu" : "studio"}>
       <header className="studio-bar">
-        <button
-          className="studio-bar__menu"
-          type="button"
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          {menuOpen ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} strokeWidth={1.5} />}
-        </button>
-        <Link to="/studio" className="site-logo">
-          Pulsif Studio
-        </Link>
+        <div className="studio-bar__brand">
+          <button
+            className="studio-bar__menu"
+            type="button"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            {menuOpen ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} strokeWidth={1.5} />}
+          </button>
+          <BackButton />
+          <Link to="/studio" className="site-logo">
+            Pulsif Studio
+          </Link>
+        </div>
         <nav className={menuOpen ? "is-open" : undefined}>
           <NavLink to="/studio" end>
             Dashboard
