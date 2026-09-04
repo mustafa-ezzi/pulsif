@@ -41,7 +41,10 @@ export function SiteFooter() {
         </div>
 
         <div className="site-footer__brand">
-          <p className="site-logo">Pulsif</p>
+          <p className="site-logo">
+            <span className="site-logo__name">Pulsif</span>
+            <span className="site-logo__by">by PowerPulse</span>
+          </p>
           <p className="eyebrow">Sign up for our newsletter</p>
           <NewsletterField />
         </div>
@@ -65,7 +68,7 @@ export function SiteFooter() {
           </div>
         </div>
       </div>
-      <p className="site-footer__copy">© {new Date().getFullYear()} Pulsif</p>
+      <p className="site-footer__copy">© {new Date().getFullYear()} Pulsif by PowerPulse</p>
     </footer>
   );
 }

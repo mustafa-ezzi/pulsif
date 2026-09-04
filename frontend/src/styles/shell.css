@@ -28,11 +28,33 @@
 }
 
 .site-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  justify-self: start;
+  min-width: 0;
+  font-family: var(--font-display);
+  line-height: 1;
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-logo__name {
   font-family: var(--font-display);
   font-size: 28px;
   letter-spacing: -0.02em;
-  line-height: 1;
-  justify-self: start;
+  line-height: 0.92;
+}
+
+.site-logo__by {
+  font-family: var(--font-ui);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mist);
+  white-space: nowrap;
 }
 
 .site-header__brand {
@@ -192,8 +214,17 @@
 }
 
 .site-drawer__title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
   font-size: clamp(36px, 5vw, 48px);
   margin: 20px 0 12px;
+}
+
+.site-drawer__title .site-logo__by {
+  font-size: 11px;
+  letter-spacing: 0.2em;
 }
 
 .site-drawer__lede {
@@ -341,9 +372,19 @@
 }
 
 .site-footer__brand .site-logo {
-  display: block;
-  margin-bottom: 20px;
-  font-size: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto 20px;
+}
+
+.site-footer__brand .site-logo__name {
+  font-size: 44px;
+}
+
+.site-footer__brand .site-logo__by {
+  font-size: 11px;
+  letter-spacing: 0.22em;
 }
 
 .site-footer__brand .eyebrow {
@@ -423,13 +464,23 @@
     position: static;
   }
 
-  .site-logo {
+  .site-header .site-logo {
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);
-    justify-self: center;
-    font-size: 22px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    align-items: center;
+    text-align: center;
+  }
+
+  .site-header .site-logo__name {
+    font-size: 20px;
     letter-spacing: 0.01em;
+  }
+
+  .site-header .site-logo__by {
+    font-size: 7.5px;
+    letter-spacing: 0.12em;
   }
 
   .back-btn {
@@ -492,6 +543,11 @@
   .site-footer__brand {
     text-align: left;
     order: -1;
+  }
+
+  .site-footer__brand .site-logo {
+    align-items: flex-start;
+    margin-left: 0;
   }
 
   .nav-drawer a {

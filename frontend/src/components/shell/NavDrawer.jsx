@@ -22,6 +22,7 @@ export function NavDrawer() {
       <p className="eyebrow">Menu</p>
       <h2 id="nav-title" className="display site-drawer__title">
         Pulsif
+        <span className="site-logo__by">by PowerPulse</span>
       </h2>
       <nav className="nav-drawer" aria-label="Mobile">
         {LINKS.map((item) => (

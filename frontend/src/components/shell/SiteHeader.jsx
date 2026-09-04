@@ -91,8 +91,9 @@ export function SiteHeader() {
           <Menu size={22} strokeWidth={1.5} />
         </button>
         <BackButton />
-        <Link to="/" className="site-logo">
-          Pulsif
+        <Link to="/" className="site-logo" aria-label="Pulsif by PowerPulse">
+          <span className="site-logo__name">Pulsif</span>
+          <span className="site-logo__by">by PowerPulse</span>
         </Link>
       </div>
 
