@@ -91,9 +91,6 @@ export async function getHome() {
 }
 
 export async function getProducts(params = {}) {
-  if (typeof params === "string") {
-    return api(`/catalog/products/${queryString({ gender: params })}`);
-  }
   return api(`/catalog/products/${queryString(params)}`);
 }
 

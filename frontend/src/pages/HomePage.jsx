@@ -29,21 +29,20 @@ function mapLabProduct(product) {
 }
 
 const FALLBACK = {
-  heroes: HERO_CHAPTERS.map((chapter, index) => ({
+  heroes: HERO_CHAPTERS.map((chapter) => ({
     id: chapter.id,
     eyebrow: chapter.eyebrow,
     headline: chapter.lines.join("\n"),
     lines: chapter.lines,
     cta_label: chapter.cta,
-    cta_href: index === 0 ? "/catalog/women" : index === 2 ? "/catalog/men" : "/catalog",
+    cta_href: "/catalog",
     image: "",
     tone: chapter.tone,
   })),
   archive: {
     eyebrow: "The Pulsif Floor",
     title: "Built to Tell Your Story",
-    men: LAB_PRODUCTS.filter((item) => item.gender !== "women").map(mapLabProduct),
-    women: LAB_PRODUCTS.filter((item) => item.gender !== "men").map(mapLabProduct),
+    products: LAB_PRODUCTS.map(mapLabProduct),
   },
   beyond: {
     eyebrow: "Beyond the Session",
@@ -65,9 +64,9 @@ const FALLBACK = {
     tone: "pink",
     products: LAB_PRODUCTS.slice(0, 3).map(mapLabProduct),
   },
-  gender_tiles: [
-    { label: "Women", href: "/catalog/women" },
-    { label: "Men", href: "/catalog/men" },
+  shop_tiles: [
+    { label: "Boards", href: "/catalog?category=boards" },
+    { label: "Bands", href: "/catalog?category=bands" },
     { label: "Shop All", href: "/catalog" },
   ],
 };
@@ -108,7 +107,7 @@ export function HomePage() {
       <PromoBanner banner={home.beyond} tall />
       <PromoBanner banner={home.essentials} />
       <Lookbook lookbook={home.lookbook} />
-      <GenderTiles tiles={home.gender_tiles} />
+      <GenderTiles tiles={home.shop_tiles || home.gender_tiles} />
     </>
   );
 }

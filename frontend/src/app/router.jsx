@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { Navigate, createBrowserRouter } from "react-router-dom";
 import { AppShell } from "../components/shell/AppShell";
 import { LabLayout } from "../motion/lab/LabLayout";
 import { HeroesLab } from "../motion/lab/HeroesLab";
@@ -39,7 +39,8 @@ export const router = createBrowserRouter([
         children: [
           { index: true, element: <HomePage /> },
           { path: "catalog", element: <CatalogPage /> },
-          { path: "catalog/:gender", element: <CatalogPage /> },
+          { path: "catalog/men", element: <Navigate to="/catalog" replace /> },
+          { path: "catalog/women", element: <Navigate to="/catalog" replace /> },
           { path: "product/:slug", element: <ProductPage /> },
           { path: "contact", element: <ContactPage /> },
           { path: "faqs", element: <FaqsPage /> },

@@ -119,7 +119,7 @@ class Command(BaseCommand):
                 "description": "A compact reformer-style board with enough travel for a full sequence. Built for daily work, not a weekend prop.",
                 "care": "Wipe with a damp cloth. Keep away from direct heat. Do not machine wash.",
                 "features": ["Fold-flat storage", "Non-slip footbed", "Pink, purple, and black"],
-                "gender": Product.Gender.WOMEN,
+                "gender": Product.Gender.UNISEX,
                 "category": cats["boards"],
                 "sizes": ["S", "M", "L", "XL"],
                 "colors": [
@@ -150,7 +150,7 @@ class Command(BaseCommand):
                 "description": "Light, medium, and heavy in a single sleeve. Pair with a board or work standing.",
                 "care": "Hang to dry. Avoid sharp jewelry.",
                 "features": ["Three tensions", "Door anchor", "Carry sleeve"],
-                "gender": Product.Gender.MEN,
+                "gender": Product.Gender.UNISEX,
                 "category": cats["bands"],
                 "sizes": ["OS"],
                 "colors": [
@@ -166,7 +166,7 @@ class Command(BaseCommand):
                 "description": "A short grip that still lets you feel the knurl. Sized for mixed training, not just one lift.",
                 "care": "Air dry. Condition leather twice a year.",
                 "features": ["Split-finger", "Wrist lock", "Graphite or black"],
-                "gender": Product.Gender.MEN,
+                "gender": Product.Gender.UNISEX,
                 "category": cats["grips"],
                 "sizes": ["S", "M", "L", "XL"],
                 "colors": [
@@ -242,9 +242,9 @@ class Command(BaseCommand):
                         attach(image, "image", image_path)
 
         heroes = [
-            ("Elevated Movement", "Tailored for\nthe Rep", "Shop Women's Boards", "/catalog/women", "pink"),
-            ("Built For Both", "Real Grip.\nReal Progress.", "Explore the Collection", "/catalog", "volt"),
-            ("Intentional Details", "Built to Last\nthe Program", "Shop Men's Gear", "/catalog/men", "graphite"),
+            ("Elevated Movement", "Tailored for\nthe Rep", "Shop the Boards", "/catalog?category=boards", "pink"),
+            ("Built For The Floor", "Real Grip.\nReal Progress.", "Explore the Collection", "/catalog", "volt"),
+            ("Intentional Details", "Built to Last\nthe Program", "Shop the Floor", "/catalog", "graphite"),
             ("The Floor", "Shop All", "View the Catalog", "/catalog", "paper"),
         ]
         HeroChapter.objects.filter(page=HeroChapter.Page.HOME).delete()
@@ -338,8 +338,8 @@ class Command(BaseCommand):
                 "general",
                 "General",
                 [
-                    ("What is Pulsif?", "A gym and pilates accessories house for men and women — boards, bands, grips, and the kit around them.", True),
-                    ("Do you make kit for both?", "Yes. Neither side of the floor is a sidecar. Pink, purple, and black sit in the same catalog.", False),
+                    ("What is Pulsif?", "A gym and pilates accessories house — boards, bands, grips, and the kit around them. Everything on the floor is unisex.", True),
+                    ("Is the catalog split by gender?", "No. Pink, purple, and black sit in the same catalog. Filter by type or color if you want a tighter view.", False),
                 ],
             ),
             (

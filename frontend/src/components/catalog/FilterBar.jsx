@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 const SORTS = [
   { id: "featured", label: "Featured" },
   { id: "newest", label: "Newest" },
@@ -7,7 +5,7 @@ const SORTS = [
   { id: "price_desc", label: "Price ↓" },
 ];
 
-export function FilterBar({ gender, query, onChange, onBeforeChange, facets, genderHref }) {
+export function FilterBar({ query, onChange, onBeforeChange, facets }) {
   const colors = facets?.colors || [];
   const categories = facets?.categories || [];
   const price = facets?.price || { min: 0, max: 0 };
@@ -19,26 +17,6 @@ export function FilterBar({ gender, query, onChange, onBeforeChange, facets, gen
 
   return (
     <div className="filter-bar">
-      <div className="filter-bar__row">
-        <Link to={genderHref("")} className={!gender ? "is-on" : undefined} onClick={() => onBeforeChange?.()}>
-          All
-        </Link>
-        <Link
-          to={genderHref("women")}
-          className={gender === "women" ? "is-on" : undefined}
-          onClick={() => onBeforeChange?.()}
-        >
-          Women
-        </Link>
-        <Link
-          to={genderHref("men")}
-          className={gender === "men" ? "is-on" : undefined}
-          onClick={() => onBeforeChange?.()}
-        >
-          Men
-        </Link>
-      </div>
-
       {categories.length ? (
         <div className="filter-bar__row">
           <button type="button" className={!query.category ? "is-on" : undefined} onClick={() => change("category", "")}>

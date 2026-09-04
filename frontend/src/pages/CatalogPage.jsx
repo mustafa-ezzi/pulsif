@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef, useState, useEffect } from "react";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getProducts } from "../api/client";
 import { Flip, gsap } from "../motion/register";
@@ -8,23 +8,15 @@ import { useReducedMotion } from "../hooks/useReducedMotion";
 import { ProductCard } from "../components/product/ProductCard";
 import { FilterBar } from "../components/catalog/FilterBar";
 
-const TITLES = {
-  men: "Men's",
-  women: "Women's",
-};
-
 const PAGE_SIZE = 12;
 
 export function CatalogPage() {
-  const { gender } = useParams();
-  const validGender = gender === "men" || gender === "women" ? gender : undefined;
   const [params, setParams] = useSearchParams();
   const [limit, setLimit] = useState(PAGE_SIZE);
   const gridRef = useRef(null);
   const flipState = useRef(null);
   const reduce = useReducedMotion();
-  const title = TITLES[validGender] || "The Floor";
-  usePageTitle(validGender ? `${title} accessories` : "Catalog");
+  usePageTitle("Catalog");
 
   const query = {
     color: params.get("color") || "",
@@ -35,7 +27,6 @@ export function CatalogPage() {
   };
 
   const filters = {
-    gender: validGender,
     color: query.color,
     category: query.category,
     sort: query.sort || "featured",
@@ -58,7 +49,7 @@ export function CatalogPage() {
 
   useEffect(() => {
     setLimit(PAGE_SIZE);
-  }, [validGender, query.color, query.category, query.sort, query.price_min, query.price_max]);
+  }, [query.color, query.category, query.sort, query.price_min, query.price_max]);
 
   const captureFlip = () => {
     const grid = gridRef.current;
@@ -102,24 +93,11 @@ export function CatalogPage() {
     setParams(next, { replace: true });
   };
 
-  const genderHref = (nextGender) => {
-    const search = params.toString();
-    const path = nextGender ? `/catalog/${nextGender}` : "/catalog";
-    return search ? `${path}?${search}` : path;
-  };
-
   return (
     <section className="page">
       <p className="eyebrow">Catalog</p>
-      <h1 className="display page__title">{title}</h1>
-      <FilterBar
-        gender={validGender}
-        query={query}
-        facets={facets}
-        genderHref={genderHref}
-        onBeforeChange={captureFlip}
-        onChange={onChange}
-      />
+      <h1 className="display page__title">The Floor</h1>
+      <FilterBar query={query} facets={facets} onBeforeChange={captureFlip} onChange={onChange} />
       <div ref={gridRef} className="card-grid catalog-grid">
         {products.map((product) => (
           <div key={product.slug} className="catalog-item" data-flip-id={product.slug}>

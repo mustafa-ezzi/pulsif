@@ -103,12 +103,12 @@ export const HERO_CHAPTERS = [
     id: "women",
     eyebrow: "Elevated Movement",
     lines: ["Tailored for", "the Rep"],
-    cta: "Shop Women's Boards",
+    cta: "Shop the Boards",
     tone: "pink",
   },
   {
     id: "story",
-    eyebrow: "Built For Both",
+    eyebrow: "Built For The Floor",
     lines: ["Real Grip.", "Real Progress."],
     cta: "Explore the Collection",
     tone: "volt",
@@ -117,7 +117,7 @@ export const HERO_CHAPTERS = [
     id: "men",
     eyebrow: "Intentional Details",
     lines: ["Built to Last", "the Program"],
-    cta: "Shop Men's Gear",
+    cta: "Shop the Floor",
     tone: "graphite",
   },
   {

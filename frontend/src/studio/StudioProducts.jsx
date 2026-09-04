@@ -55,7 +55,6 @@ export function StudioProducts() {
           <tr>
             <th>Title</th>
             <th>Status</th>
-            <th>Gender</th>
             <th>Variants</th>
             <th>Images</th>
             <th>Min stock</th>
@@ -72,7 +71,6 @@ export function StudioProducts() {
               <td>
                 <span className={`studio-status is-${product.status}`}>{product.status}</span>
               </td>
-              <td>{product.gender}</td>
               <td>{product.variant_count}</td>
               <td>{product.image_count}</td>
               <td>{product.min_stock ?? "—"}</td>

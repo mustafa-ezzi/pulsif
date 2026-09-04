@@ -5,8 +5,6 @@ import { DrawerFrame } from "./DrawerFrame";
 const LINKS = [
   { to: "/", label: "Home", end: true },
   { to: "/catalog", label: "Catalog" },
-  { to: "/catalog/women", label: "Women" },
-  { to: "/catalog/men", label: "Men" },
   { to: "/contact", label: "Contact" },
   { to: "/faqs", label: "FAQs" },
   { to: "/account", label: "Account" },

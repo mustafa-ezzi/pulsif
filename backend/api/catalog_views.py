@@ -20,7 +20,6 @@ def _live():
 @permission_classes([AllowAny])
 def product_list(request):
     products = _live()
-    gender = request.query_params.get("gender")
     color = request.query_params.get("color")
     category = request.query_params.get("category")
     query = request.query_params.get("q", "").strip()
@@ -42,8 +41,6 @@ def product_list(request):
     except ValueError:
         offset = 0
 
-    if gender in ("men", "women"):
-        products = products.filter(gender__in=[gender, Product.Gender.UNISEX])
     if category:
         products = products.filter(category__slug=category)
     if color:
@@ -68,8 +65,6 @@ def product_list(request):
     page = products[offset : offset + limit]
 
     facet_base = _live()
-    if gender in ("men", "women"):
-        facet_base = facet_base.filter(gender__in=[gender, Product.Gender.UNISEX])
 
     price_stats = Variant.objects.filter(product__in=facet_base).aggregate(
         min_price=Min("price"), max_price=Max("price")

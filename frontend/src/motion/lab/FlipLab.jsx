@@ -5,8 +5,6 @@ import { LAB_PRODUCTS } from "../../data/labProducts";
 
 const FILTERS = [
   { id: "all", label: "All" },
-  { id: "women", label: "Women" },
-  { id: "men", label: "Men" },
   { id: "pink", label: "Pink" },
   { id: "purple", label: "Purple" },
   { id: "black", label: "Black" },
@@ -14,7 +12,6 @@ const FILTERS = [
 
 function matches(product, filter) {
   if (filter === "all") return true;
-  if (filter === "women" || filter === "men") return product.gender === filter || product.gender === "unisex";
   return product.colors.some((color) => color.slug === filter);
 }
 
@@ -71,7 +68,6 @@ export function FlipLab() {
       <div className="flip-grid">
         {LAB_PRODUCTS.map((product) => (
           <article key={product.id} className="flip-item lab-tile" data-id={product.id}>
-            <p className="eyebrow">{product.gender}</p>
             <h2>{product.title}</h2>
             <p>${product.price.toFixed(2)}</p>
           </article>

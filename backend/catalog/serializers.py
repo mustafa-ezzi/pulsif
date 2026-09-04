@@ -144,7 +144,7 @@ class ProductDetailSerializer(ProductCardSerializer):
         if product.category_id:
             related = list(qs.filter(category=product.category)[:4])
         else:
-            related = list(qs.filter(gender__in=[product.gender, Product.Gender.UNISEX])[:4])
+            related = list(qs[:4])
         if len(related) < 4:
             extra = list(qs.exclude(pk__in=[item.pk for item in related])[: 4 - len(related)])
             related.extend(extra)

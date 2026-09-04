@@ -33,8 +33,6 @@ def sitemap(_request):
     paths = [
         "/",
         "/catalog",
-        "/catalog/women",
-        "/catalog/men",
         "/contact",
         "/faqs",
         "/privacy",

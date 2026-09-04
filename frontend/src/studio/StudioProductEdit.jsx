@@ -87,6 +87,7 @@ export function StudioProductEdit() {
 
   const payload = () => ({
     ...form,
+    gender: "unisex",
     category: form.category || null,
     features: featuresText
       .split("\n")
@@ -175,14 +176,6 @@ export function StudioProductEdit() {
           <input value={form.subtitle} onChange={(event) => setField("subtitle", event.target.value)} />
         </label>
         <div className="studio-form__row">
-          <label>
-            Gender
-            <select value={form.gender} onChange={(event) => setField("gender", event.target.value)}>
-              <option value="unisex">Unisex</option>
-              <option value="women">Women</option>
-              <option value="men">Men</option>
-            </select>
-          </label>
           <label>
             Category
             <select value={form.category} onChange={(event) => setField("category", event.target.value)}>

@@ -42,13 +42,26 @@ def home(request):
         products = [item.product for item in items if item.product_id]
         return _product_cards(request, products)
 
+    def unique_cards(*groups):
+        seen = set()
+        out = []
+        for group in groups:
+            for card in group:
+                slug = card.get("slug")
+                if slug and slug not in seen:
+                    seen.add(slug)
+                    out.append(card)
+        return out
+
     payload = {
         "heroes": HeroChapterSerializer(heroes, many=True, context={"request": request}).data,
         "archive": {
             "eyebrow": "The Pulsif Floor",
             "title": "Built to Tell Your Story",
-            "men": carousel_products("home_archive_men"),
-            "women": carousel_products("home_archive_women"),
+            "products": unique_cards(
+                carousel_products("home_archive_women"),
+                carousel_products("home_archive_men"),
+            ),
         },
         "beyond": BannerSerializer(banners.get("beyond"), context={"request": request}).data
         if banners.get("beyond")
@@ -64,9 +77,9 @@ def home(request):
             ),
             "products": carousel_products("home_lookbook"),
         },
-        "gender_tiles": [
-            {"label": "Women", "href": "/catalog/women"},
-            {"label": "Men", "href": "/catalog/men"},
+        "shop_tiles": [
+            {"label": "Boards", "href": "/catalog?category=boards"},
+            {"label": "Bands", "href": "/catalog?category=bands"},
             {"label": "Shop All", "href": "/catalog"},
         ],
     }

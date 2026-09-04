@@ -98,8 +98,8 @@ export function VideoHero() {
           <Link className="video-hero__btn" to="/catalog">
             Shop the collection
           </Link>
-          <Link className="video-hero__btn video-hero__btn--ghost" to="/catalog/women">
-            Shop women
+          <Link className="video-hero__btn video-hero__btn--ghost" to="/catalog?category=boards">
+            Shop boards
           </Link>
         </div>
       </div>
